@@ -1,34 +1,33 @@
 # arene-des-algos-Mathieu_PONNOU
 
-Repo de la semaine ML/DL — pipeline de classification supervisée et non-supervisée, avec comparaison de plusieurs algorithmes sur plusieurs datasets.
+Repo de la semaine ML/DL — preprocessing, régression, clustering, classification texte et binaire, comparaison d'algorithmes sur plusieurs datasets réels.
 
 ## Ce que vous trouverez ici
 
-- **Notebook principal** (`ml_arena_breast_cancer.ipynb`) : pipeline ML complet de bout en bout
-- Exploration des datasets (breast cancer, wine)
-- Split train/test, entraînement, prédiction, évaluation
-- L'Arène : classement de plusieurs algos sur le même split
-- Clustering non-supervisé (KMeans) sans les étiquettes
-- Visualisations : barplot des accuracies, matrices de confusion
-
-## Datasets utilisés
-
-| Dataset | Type | Classes | Exemples | Features |
-|---|---|---|---|---|
-| `load_breast_cancer` | Classification binaire | 2 (bénigne / maligne) | 569 | 30 |
-| `load_wine` | Classification multi-classe | 3 | 178 | 13 |
-
-## Algos comparés
-
-- Régression logistique
-- K-Nearest Neighbors (KNN)
-- Arbre de décision
+- **`ml_arena_breast_cancer.ipynb`** : premier pipeline supervisé complet, arène de 3 algos sur breast cancer et wine, clustering KMeans, démonstration data leakage
+- **`telco_churn_preprocessing.ipynb`** : pipeline de preprocessing complet sur le dataset Telco Customer Churn (audit qualité, encodage, outliers, multicolinéarité, features discriminantes)
+- **`j3-arene-des-algos.ipynb`** : régression, clustering, classification texte, classification binaire — 4 datasets, cas normal / limite / adversarial sur chaque phase, fight final avec leaderboard
 
 ---
 
-## Preprocessing — Telco Customer Churn
+## Jour 1 — Premier pipeline et Arène
 
-Notebook : `telco_churn_preprocessing.ipynb`
+Notebook : `ml_arena_breast_cancer.ipynb`
+
+| Dataset | Type | Exemples | Features |
+|---|---|---|---|
+| `load_breast_cancer` | Classification binaire (bénigne / maligne) | 569 | 30 |
+| `load_wine` | Classification multi-classe (3 cépages) | 178 | 13 |
+
+- Pipeline supervisé complet : split stratifié, entraînement, prédiction, accuracy
+- Arène : Régression logistique, KNN, Arbre de décision comparés sur le même split
+- Clustering KMeans sans étiquettes pour retrouver les classes naturelles
+
+---
+
+## Jour 2 — Preprocessing Telco Customer Churn
+
+Notebook : `telco_churn_preprocessing.ipynb`  
 Dataset : Telco Customer Churn — 7 043 clients, 21 colonnes, cible `Churn` (~73% No / ~27% Yes).
 
 ### Ce qui a été fait
@@ -49,4 +48,27 @@ Dataset : Telco Customer Churn — 7 043 clients, 21 colonnes, cible `Churn` (~7
 
 1. `Contract` — les clients sans engagement (`Month-to-month`) résilient massivement plus
 2. `tenure` — les nouveaux clients sont beaucoup plus volatils
+
+---
+
+## Arène des Algos — Jour 3
+
+Notebook : `j3-arene-des-algos.ipynb`
+
+### Datasets utilisés
+
+| Dataset | Type | Exemples | Features |
+|---|---|---|---|
+| California Housing (`fetch_california_housing`) | Régression | 20 640 | 8 |
+| AirBnB Ottawa (Inside Airbnb) | Clustering | 2 440 | 5 |
+| SMS Spam Collection (UCI) | Classification texte | 5 572 | TF-IDF |
+| Sonar (UCI id=151) | Classification binaire | 208 | 60 |
+
+### Ce qui a été fait
+
+- **Phase A — Régression** : LinearRegression (R²=0.58) vs RandomForest (R²=0.81) sur California Housing ; cas limite 100 lignes, cas adversarial quartier fictif
+- **Phase B — Clustering** : KMeans sur listings AirBnB Ottawa, k choisi par méthode du coude (k=6), 6 segments décrits ; cas limite sans StandardScaler, cas adversarial outlier à 100 000 €/nuit
+- **Phase C — Spam** : TF-IDF + Naive Bayes (recall spam=0.77) vs Régression logistique (recall spam=0.83) ; cas limite message vide, cas adversarial spam déguisé en français
+- **Phase D — Sonar** : LR / SVC(rbf) / RandomForest avec et sans StandardScaler ; SVC chute de 0.93→0.83 sans scaling ; cas adversarial écho à zéro
+- **Phase E — Fight des IA** : leaderboard sur même split Sonar, F1 + accuracy + timing — champion : SVC_rbf (F1=0.936)
 
