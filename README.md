@@ -4,15 +4,15 @@ Repo de la semaine ML/DL — preprocessing, régression, clustering, classificat
 
 ## Ce que vous trouverez ici
 
-- **`ml_arena_breast_cancer.ipynb`** : premier pipeline supervisé complet, arène de 3 algos sur breast cancer et wine, clustering KMeans, démonstration data leakage
-- **`telco_churn_preprocessing.ipynb`** : pipeline de preprocessing complet sur le dataset Telco Customer Churn (audit qualité, encodage, outliers, multicolinéarité, features discriminantes)
-- **`j3-arene-des-algos.ipynb`** : régression, clustering, classification texte, classification binaire — 4 datasets, cas normal / limite / adversarial sur chaque phase, fight final avec leaderboard
+- **`j1_ml_arena_breast_cancer.ipynb`** : premier pipeline supervisé complet, arène de 3 algos sur breast cancer et wine, clustering KMeans, démonstration data leakage
+- **`j2_telco_churn_preprocessing.ipynb`** : pipeline de preprocessing complet sur le dataset Telco Customer Churn (audit qualité, encodage, outliers, multicolinéarité, features discriminantes)
+- **`j3_arene_des_algos.ipynb`** : régression, clustering, classification texte, classification binaire — 4 datasets, cas normal / limite / adversarial sur chaque phase, fight final avec leaderboard
 
 ---
 
 ## Jour 1 — Premier pipeline et Arène
 
-Notebook : `ml_arena_breast_cancer.ipynb`
+Notebook : `j1_ml_arena_breast_cancer.ipynb`
 
 | Dataset | Type | Exemples | Features |
 |---|---|---|---|
@@ -27,7 +27,7 @@ Notebook : `ml_arena_breast_cancer.ipynb`
 
 ## Jour 2 — Preprocessing Telco Customer Churn
 
-Notebook : `telco_churn_preprocessing.ipynb`  
+Notebook : `j2_telco_churn_preprocessing.ipynb`  
 Dataset : Telco Customer Churn — 7 043 clients, 21 colonnes, cible `Churn` (~73% No / ~27% Yes).
 
 ### Ce qui a été fait
@@ -53,7 +53,7 @@ Dataset : Telco Customer Churn — 7 043 clients, 21 colonnes, cible `Churn` (~7
 
 ## Arène des Algos — Jour 3
 
-Notebook : `j3-arene-des-algos.ipynb`
+Notebook : `j3_arene_des_algos.ipynb`
 
 ### Datasets utilisés
 
