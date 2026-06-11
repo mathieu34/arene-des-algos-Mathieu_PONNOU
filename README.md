@@ -7,6 +7,7 @@ Repo de la semaine ML/DL — preprocessing, régression, clustering, classificat
 - **`j1_ml_arena_breast_cancer.ipynb`** : premier pipeline supervisé complet, arène de 3 algos sur breast cancer et wine, clustering KMeans, démonstration data leakage
 - **`j2_telco_churn_preprocessing.ipynb`** : pipeline de preprocessing complet sur le dataset Telco Customer Churn (audit qualité, encodage, outliers, multicolinéarité, features discriminantes)
 - **`j3_arene_des_algos.ipynb`** : régression, clustering, classification texte, classification binaire — 4 datasets, cas normal / limite / adversarial sur chaque phase, fight final avec leaderboard
+- **`jour4/j4_evaluation_production.ipynb`** : évaluation rigoureuse, métriques métier, bootstrap, validation croisée, sérialisation et déploiement
 
 ---
 
@@ -71,4 +72,28 @@ Notebook : `j3_arene_des_algos.ipynb`
 - **Phase C — Spam** : TF-IDF + Naive Bayes (recall spam=0.77) vs Régression logistique (recall spam=0.83) ; cas limite message vide, cas adversarial spam déguisé en français
 - **Phase D — Sonar** : LR / SVC(rbf) / RandomForest avec et sans StandardScaler ; SVC chute de 0.93→0.83 sans scaling ; cas adversarial écho à zéro
 - **Phase E — Fight des IA** : leaderboard sur même split Sonar, F1 + accuracy + timing — champion : SVC_rbf (F1=0.936)
+
+---
+
+## Évaluation et Production — Jour 4
+
+Notebook : `jour4/j4_evaluation_production.ipynb`
+
+### Datasets utilisés
+
+| Dataset | Type | Exemples | Features |
+|---|---|---|---|
+| IBM HR Attrition (Kaggle) | Classification binaire (churn RH) | 1 470 | 35 |
+| Credit Card Fraud (Kaggle) | Classification binaire (fraude) | 284 807 | 30 |
+
+### Ce qui a été fait
+
+- **Phase 1 — Split train/val/test** : découpage 60/20/20 avec stratification sur IBM HR Attrition ; vérification de la répartition des classes dans chaque jeu
+- **Phase 2 — Bootstrap** : 30 itérations avec remise, identification des indices OOB, score moyen ± écart-type sur Random Forest
+- **Phase 3 — Validation croisée** : cross_val_score k=5 avec StratifiedKFold ; leave-one-out testé (cas limite) ; comparaison avec/sans stratification sur Credit Card Fraud
+- **Phase 4 — Coût métier** : démonstration que l'accuracy ment sur données déséquilibrées (0.17% fraudes) ; modèle paresseux 99.83% accuracy / 0% recall / coût=530 vs modèle A recall=0.75 / coût=91
+
+### Leçon centrale
+
+Le modèle paresseux (toujours "pas de fraude") atteint 99.83% d'accuracy mais laisse passer 100% des fraudes et coûte 6x plus cher en fraudes ratées que le modèle A — l'accuracy seule est un mensonge sur données déséquilibrées.
 
